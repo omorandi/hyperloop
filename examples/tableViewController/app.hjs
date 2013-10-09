@@ -54,20 +54,20 @@ this.name = "global"
         action: function(params) {
             console.log('cellForRowAtIndexPath');
 
-            /* this doesn't work
-
             var cellId = NSString.stringWithUTF8String("Cell");
+            var cell = null;
 
-            var cell = tableViewController.tableView.dequeueReusableCellWithIdentifier(cellId, cellForRowAtIndexPath);
+            //this doesn't work
+            //var cell = params.tableView.dequeueReusableCellWithIdentifier(cellId, params.cellForRowAtIndexPath);
+
             if (!cell) {
-                cell = UITableViewCell.alloc().initWithStyle(UITableViewCellStyleDefault, cellId);
-                cell.textLabel().text = NSString.stringWithUTF8String("Hello");
+                cell = new UITableViewCell();
+                cell.reuseIdentifier = cellId;
             }
-            */
 
-            //this works
-            var cell = new UITableViewCell();
-
+            var text = data[params.cellForRowAtIndexPath.row];
+            console.log(text);
+            cell.textLabel.text = NSString.stringWithUTF8String(text);
             return cell;
         }
     }
