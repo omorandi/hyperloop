@@ -1,0 +1,83 @@
+@import('UIKit/UIApplication');
+@import('UIKit/UIWindow');
+@import('UIKit/UIColor');
+@import('UIKit/UIScreen');
+@import('UIKit/UIView');
+@import('UIKit/UITableViewController');
+@import('UIKit/UITableView');
+@import('UIKit/UIBarButtonItem');
+@import('UIKit/UITableViewCell');
+@import('UIKit/NSIndexPath');
+@import('UIKit/UILabel');
+@import('UIKit/UILabel');
+@import('Foundation/NSString');
+
+@import('CoreGraphics/CGRectMake');
+
+
+var data = ['hello', 'world', 'how', 'are', 'you', 'doing?'];
+
+this.name = "global"
+
+@class('TableViewController', UITableViewController, [], [
+    {
+        name: 'viewDidLoad',
+        returnType: 'void',
+        arguments: [],
+        action: function() {
+            console.log('viewDidLoad: ' + this.name);
+        }
+    },
+    {
+        name: 'numberOfSectionsInTableView',
+        returnType: 'NSInteger',
+        arguments: [{type: 'UITableView', name: 'tableView'}],
+        action: function(params) {
+            console.log('numberOfSectionsInTableView')
+            return 1;
+        }
+    },
+    {
+        name: 'tableView',
+        returnType: 'NSInteger',
+        arguments: [{type: 'UITableView', name: 'tableView'}, {type: 'NSInteger', name: 'numberOfRowsInSection'}],
+        action: function(params) {
+            console.log('numberOfRowsInSection');
+            return data.length;
+        }
+    },
+
+    {
+        name: 'tableView',
+        returnType: 'UITableViewCell',
+        arguments: [{type: 'UITableView', name: 'tableView'}, {type: 'NSIndexPath', name: 'cellForRowAtIndexPath'}],
+        action: function(params) {
+            console.log('cellForRowAtIndexPath');
+
+            /* this doesn't work
+
+            var cellId = NSString.stringWithUTF8String("Cell");
+
+            var cell = tableViewController.tableView.dequeueReusableCellWithIdentifier(cellId, cellForRowAtIndexPath);
+            if (!cell) {
+                cell = UITableViewCell.alloc().initWithStyle(UITableViewCellStyleDefault, cellId);
+                cell.textLabel().text = NSString.stringWithUTF8String("Hello");
+            }
+            */
+
+            //this works
+            var cell = new UITableViewCell();
+
+            return cell;
+        }
+    }
+]);
+
+
+var keyWindow = UIApplication.sharedApplication().keyWindow;
+keyWindow.backgroundColor = UIColor.blueColor();
+
+var tableViewController = new TableViewController();
+tableViewController.name = 'table';
+
+keyWindow.addSubview(tableViewController.tableView);
