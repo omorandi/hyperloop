@@ -1,0 +1,34 @@
+@import('Foundation/NSObject');
+@import('Foundation/NSString');
+
+console.log(NSObject.toString());
+
+//class method
+var s1 = NSString.stringWithFormat('%@','hello');
+
+console.log(s1);
+
+//object method
+var s2 = NSString.alloc().initWithFormat('%@', 'world');
+
+console.log(s2);
+
+
+var obj = new NSObject();
+
+console.log(obj.toString());
+
+//this doesn't work
+console.log('obj instanceof NSObject? ' + (obj instanceof NSObject));
+
+
+console.log('obj.constructor === NSObject? ' + (obj.constructor === NSObject));
+console.log('obj.__proto__ === NSObject.prototype? ' + (obj.__proto__ === NSObject.prototype));
+
+
+
+console.log('NSObject.prototype.performSelector !== undefined? ' + (NSObject.prototype.performSelector !== undefined));
+
+
+//now here's a BIG problem: NSString should inherit NSObject methods but this doesn't happen
+console.log('s1.performSelector === NSObject.prototype.performSelector? ' + (s1.performSelector === NSObject.prototype.performSelector));
